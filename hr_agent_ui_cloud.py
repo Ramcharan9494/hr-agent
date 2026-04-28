@@ -1,6 +1,7 @@
 import os
 import tempfile
 import streamlit as st
+from dotenv import load_dotenv
 
 from langchain_community.document_loaders import PyPDFLoader
 from langchain_community.vectorstores import FAISS
@@ -8,9 +9,11 @@ from langchain_openai import OpenAIEmbeddings, ChatOpenAI
 from langchain_core.prompts import PromptTemplate
 
 # -------------------------------------------------
-# 🔑 OPENAI API KEY (hard-coded for demo)
+# 🔑 OPENAI API KEY
 # -------------------------------------------------
-os.environ["OPENAI_API_KEY"] = st.secrets["OPENAI_API_KEY"]
+load_dotenv()
+if not os.environ.get("OPENAI_API_KEY"):
+    raise ValueError("OPENAI_API_KEY not found. Add it to your .env file.")
 
 
 # -------------------------------------------------
